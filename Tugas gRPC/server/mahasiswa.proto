@@ -7,6 +7,20 @@ message Mahasiswa {
   int64 nilai = 4;
 }
 
+message Contacts {
+  string nama = 1;
+  string no_telp = 2;
+  string email = 3;
+}
+
+message Contact_id {
+  string id = 1;
+}
+
+message Mahasiswa_id {
+  string id = 1;
+}
+
 message Empty {}
 
 message MahasiswaList {
@@ -16,9 +30,9 @@ message MahasiswaList {
 service MahasiswaService {
   rpc getAll (Empty) returns (MahasiswaList) {}
   rpc AddMahasiswa (Mahasiswa) returns (Mahasiswa) {}
-  rpc deleteMahasiswa (Mahasiswa) returns (Mahasiswa) {};
-  rpc updateMahasiswa (Mahasiswa) returns (Mahasiswa) {};
-  rpc getMahasiswa (Mahasiswa) returns (Mahasiswa) {};
+  rpc deleteMahasiswa (Mahasiswa_id) returns (Empty) {};
+  rpc updateMahasiswa (Mahasiswa_id) returns (Mahasiswa) {};
+  rpc getMahasiswa (Mahasiswa_id) returns (Mahasiswa) {};
   rpc createDatabase (Empty) returns (Empty) {};
   rpc deleteDatabase (Empty) returns (Empty) {};
 }
