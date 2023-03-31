@@ -3,9 +3,10 @@ const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const api = require('./db.js');
 const mongoose = require('mongoose');
+const { ObjectId } = require('mongodb');
 
 // Define Proto path 
-const PROTO_PATH = './mahasiswa.proto';
+const PROTO_PATH = './contacts.proto';
 
 const options = {
     keepCase: true,
@@ -18,17 +19,18 @@ const options = {
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, options);
 
 // Load Proto 
-const mahasiswaProto = grpc.loadPackageDefinition(packageDefinition);
+const contactsProto = grpc.loadPackageDefinition(packageDefinition);
 
 // Connection URL and database name
-const url = 'mongodb://admin:pass12345@localhost:27017/mahasiswa?authSource=admin';
+const url = 'mongodb://admin:pass12345@localhost:27017/contacts?authSource=admin';
 const dbName = 'mahasiswa';
 
-const Mahasiswa = mongoose.model('mahasiswa', new mongoose.Schema({
-    id: String,
+const Contacts = mongoose.model('contact', new mongoose.Schema({
     nama: String,
-    nrp: String,
-    nilai: String
+    email: String,
+    phone: String,
+    category: String,
+    description: String,
 }));
 
 
@@ -48,21 +50,21 @@ async function main() {
     await connectDB().catch(err => console.log(err));
     let server = new grpc.Server();
 
-    server.addService(mahasiswaProto.MahasiswaService.service, {
+    server.addService(contactsProto.ContactService.service, {
         getAll: async (_, callback) => {
             try {
-                const mahasiswa = await Mahasiswa.find();
-                callback(null, { mahasiswa });
+                const contacts = await Contacts.find();
+                callback(null, { contacts });
             } catch (error) {
                 callback(error, null);
             }
         },
-        deleteMahasiswa: async (call, callback) => {
+        deleteContact: async (call, callback) => {
             const _id = call.request.id;
             try {
-                const mahasiswa = await Mahasiswa.findByIdAndDelete(_id);
-                if (!mahasiswa) {
-                    callback({ code: grpc.status.NOT_FOUND, message: 'Mahasiswa not found' }, null);
+                const contact = await Contacts.findByIdAndDelete(_id);
+                if (!contact) {
+                    callback({ code: grpc.status.NOT_FOUND, message: 'Contact not found' }, null);
                 } else {
                     console.log(`1 document deleted`);
                     callback(null, {});
@@ -71,47 +73,45 @@ async function main() {
                 callback(error, null);
             }
         },
-        updateMahasiswa: async (call, callback) => {
+        updateContact: async (call, callback) => {
             const _id = call.request.id;
-            const _mahasiswa = call.request;
+            const _contact = call.request;
             try {
-                const mahasiswa = await Mahasiswa.findByIdAndUpdate(_mahasiswa);
-                if (!mahasiswa) {
-                    callback({ code: grpc.status.NOT_FOUND, message: 'Mahasiswa not found' }, null);
+                const contact = await Contacts.findByIdAndUpdate(_contact);
+                if (!contact) {
+                    callback({ code: grpc.status.NOT_FOUND, message: 'Contact not found' }, null);
                 } else {
                     console.log(`1 document updated`);
-                    callback(null, _mahasiswa);
+                    callback(null, _contact);
                 }
             } catch (error) {
                 callback(error, null);
             }
         },
-        getMahasiswa: async (call, callback) => {
+        getContact: async (call, callback) => {
             const _id = call.request.id;
             try {
-                const mahasiswa = await Mahasiswa.findById(_id);
-                if (!mahasiswa) {
-                    callback({ code: grpc.status.NOT_FOUND, message: 'Mahasiswa not found' }, null);
+                const contact = await Contacts.findById(_id);
+                if (!contact) {
+                    callback({ code: grpc.status.NOT_FOUND, message: 'Contact not found' }, null);
                 } else {
-                    callback(null, mahasiswa);
+                    callback(null, contact);
                 }
             } catch (error) {
                 callback(error, null);
             }
         },
-        addMahasiswa: async (call, callback) => {
-            const _mahasiswa = call.request;
+        addContact: async (call, callback) => {
+            const _contact = call.request;
             try {
-                const mahasiswa = new Mahasiswa(_mahasiswa);
-                if (await mahasiswa.save()) {
-                    callback(null, _mahasiswa);
-                }
+                const contact = await Contacts.create(_contact);
+                callback(null, contact);
             } catch (error) {
                 callback(error, null);
             }
         },
         createDatabase: (_, callback) => {
-            db.createCollection("mahasiswa", (err, res) => {
+            db.createCollection("contacts", (err, res) => {
                 if (err) {
                     console.error(err);
                     callback(err, null);

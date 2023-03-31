@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package contacts;
+
+service ContactService {
+  rpc getAll (Empty) returns (ContactList) {}
+  rpc AddContact (Contacts) returns (Contacts) {}
+  rpc deleteContact (Contact_id) returns (Empty) {};
+  rpc updateContact (Contact_id) returns (Contacts) {};
+  rpc getContact (Contact_id) returns (Contacts) {};
+  rpc createDatabase (Empty) returns (Empty) {};
+  rpc deleteDatabase (Empty) returns (Empty) {};
+}
+
+message Contacts {
+  string nama = 1;
+  string email = 2;
+  string phone = 3;
+  string category = 4;
+  string description = 5;
+}
+
+message Contact_id {
+  string id = 1;
+}
+
+message Empty {}
+
+message ContactList {
+  repeated Contacts contacts = 1;
+}
