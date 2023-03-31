@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { ContactServiceClient } from "../protos/contacts_grpc_web_pb";
-// import { AddContact } from "../protos/contacts_pb";
+// import { ContactServiceClient } from "../protos/contacts_grpc_web_pb.d.ts";
+import { Client } from "grpc-web";
 
 export const useMainStore = defineStore("main", {
   state: () => ({
@@ -57,6 +57,23 @@ export const useMainStore = defineStore("main", {
         category: "None",
         description: "",
       };
+    },
+    addContact() {
+      // let contact = new Contacts({
+      //   nama: this.input.name,
+      //   email: this.input.email,
+      //   phone: this.input.phone,
+      //   category: this.input.category,
+      //   description: this.input.description,
+      // });
+      // const client = new ContactServiceClient("http://localhost:50051");
+      // client.addContact(contact, {}, (err, response) => {
+      //   if (err) {
+      //     console.log(err);
+      //     return;
+      //   }
+      //   console.log(response);
+      // });
     },
   },
 });

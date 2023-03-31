@@ -8,7 +8,7 @@
 // versions:
 // 	protoc-gen-grpc-web v1.4.1
 // 	protoc              v4.22.2
-// source: contacts.proto
+// source: server/contacts.proto
 
 
 /* eslint-disable */

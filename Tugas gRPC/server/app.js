@@ -50,7 +50,7 @@ async function main() {
     await connectDB().catch(err => console.log(err));
     let server = new grpc.Server();
 
-    server.addService(contactsProto.ContactService.service, {
+    server.addService(contactsProto.contacts.ContactService.service, {
         getAll: async (_, callback) => {
             try {
                 const contacts = await Contacts.find();
