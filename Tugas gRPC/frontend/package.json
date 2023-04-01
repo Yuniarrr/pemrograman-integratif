@@ -16,6 +16,7 @@
     "chart.js": "^3.6.0",
     "google-protobuf": "^3.21.2",
     "grpc-web": "^1.4.2",
+    "node-fetch": "^3.3.1",
     "numeral": "^2.0.6",
     "pinia": "^2.0.13",
     "protobufjs": "^7.2.3",

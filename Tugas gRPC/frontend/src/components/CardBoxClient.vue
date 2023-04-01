@@ -19,10 +19,6 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  progress: {
-    type: Number,
-    default: 0,
-  },
   text: {
     type: String,
     default: null,
@@ -38,17 +34,6 @@ const pillType = computed(() => {
     return props.type;
   }
 
-  if (props.progress) {
-    if (props.progress >= 60) {
-      return "success";
-    }
-    if (props.progress >= 40) {
-      return "warning";
-    }
-
-    return "danger";
-  }
-
   return "info";
 });
 
@@ -60,8 +45,6 @@ const pillIcon = computed(() => {
     info: null,
   }[pillType.value];
 });
-
-const pillText = computed(() => props.text ?? `${props.progress}%`);
 </script>
 
 <template>
@@ -78,7 +61,6 @@ const pillText = computed(() => props.text ?? `${props.progress}%`);
           </p>
         </div>
       </BaseLevel>
-      <PillTag :color="pillType" :label="pillText" :icon="pillIcon" />
     </BaseLevel>
   </CardBox>
 </template>

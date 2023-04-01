@@ -1,7 +1,8 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-// import { ContactServiceClient } from "../protos/contacts_grpc_web_pb.d.ts";
+// import { ContactServiceClient } from "../protos/contacts_grpc_web_pb";
 import { Client } from "grpc-web";
+// import { Contacts } from "../protos/contacts_pb";
 
 export const useMainStore = defineStore("main", {
   state: () => ({

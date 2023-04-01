@@ -1,13 +1,12 @@
 import {
   mdiAccountCircle,
   mdiMonitor,
-  mdiGithub,
   mdiLock,
   mdiAlertCircle,
   mdiSquareEditOutline,
   mdiTable,
   mdiViewList,
-  mdiPalette,
+  mdiAccountPlusOutline,
 } from "@mdi/js";
 
 export default [
@@ -27,11 +26,6 @@ export default [
     icon: mdiSquareEditOutline,
   },
   {
-    to: "/dashboard",
-    label: "Styles",
-    icon: mdiPalette,
-  },
-  {
     to: "/profile",
     label: "Profile",
     icon: mdiAccountCircle,
@@ -40,6 +34,11 @@ export default [
     to: "/login",
     label: "Login",
     icon: mdiLock,
+  },
+  {
+    to: "/register",
+    label: "Register",
+    icon: mdiAccountPlusOutline,
   },
   {
     to: "/error",
@@ -57,11 +56,5 @@ export default [
         label: "Item Two",
       },
     ],
-  },
-  {
-    href: "https://github.com/justboil/admin-one-vue-tailwind",
-    label: "GitHub",
-    icon: mdiGithub,
-    target: "_blank",
   },
 ];

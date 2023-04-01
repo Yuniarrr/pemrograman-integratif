@@ -1,5 +1,5 @@
 /**
- * @fileoverview gRPC-Web generated client stub for 
+ * @fileoverview gRPC-Web generated client stub for contacts
  * @enhanceable
  * @public
  */
@@ -8,7 +8,7 @@
 // versions:
 // 	protoc-gen-grpc-web v1.4.1
 // 	protoc              v4.22.2
-// source: server/contacts.proto
+// source: contacts.proto
 
 
 /* eslint-disable */
@@ -19,7 +19,8 @@
 const grpc = {};
 grpc.web = require('grpc-web');
 
-const proto = require('./contacts_pb.js');
+const proto = {};
+proto.contacts = require('./contacts_pb.js');
 
 /**
  * @param {string} hostname
@@ -29,7 +30,7 @@ const proto = require('./contacts_pb.js');
  * @struct
  * @final
  */
-proto.ContactServiceClient =
+proto.contacts.ContactServiceClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
   options.format = 'text';
@@ -55,7 +56,7 @@ proto.ContactServiceClient =
  * @struct
  * @final
  */
-proto.ContactServicePromiseClient =
+proto.contacts.ContactServicePromiseClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
   options.format = 'text';
@@ -76,39 +77,39 @@ proto.ContactServicePromiseClient =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.Empty,
- *   !proto.ContactList>}
+ *   !proto.contacts.Empty,
+ *   !proto.contacts.ContactList>}
  */
 const methodDescriptor_ContactService_getAll = new grpc.web.MethodDescriptor(
-  '/ContactService/getAll',
+  '/contacts.ContactService/getAll',
   grpc.web.MethodType.UNARY,
-  proto.Empty,
-  proto.ContactList,
+  proto.contacts.Empty,
+  proto.contacts.ContactList,
   /**
-   * @param {!proto.Empty} request
+   * @param {!proto.contacts.Empty} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.ContactList.deserializeBinary
+  proto.contacts.ContactList.deserializeBinary
 );
 
 
 /**
- * @param {!proto.Empty} request The
+ * @param {!proto.contacts.Empty} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.ContactList)}
+ * @param {function(?grpc.web.RpcError, ?proto.contacts.ContactList)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.ContactList>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.contacts.ContactList>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.ContactServiceClient.prototype.getAll =
+proto.contacts.ContactServiceClient.prototype.getAll =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/ContactService/getAll',
+      '/contacts.ContactService/getAll',
       request,
       metadata || {},
       methodDescriptor_ContactService_getAll,
@@ -117,17 +118,17 @@ proto.ContactServiceClient.prototype.getAll =
 
 
 /**
- * @param {!proto.Empty} request The
+ * @param {!proto.contacts.Empty} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.ContactList>}
+ * @return {!Promise<!proto.contacts.ContactList>}
  *     Promise that resolves to the response
  */
-proto.ContactServicePromiseClient.prototype.getAll =
+proto.contacts.ContactServicePromiseClient.prototype.getAll =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/ContactService/getAll',
+      '/contacts.ContactService/getAll',
       request,
       metadata || {},
       methodDescriptor_ContactService_getAll);
@@ -137,39 +138,39 @@ proto.ContactServicePromiseClient.prototype.getAll =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.Contacts,
- *   !proto.Contacts>}
+ *   !proto.contacts.Contacts,
+ *   !proto.contacts.Contacts>}
  */
 const methodDescriptor_ContactService_AddContact = new grpc.web.MethodDescriptor(
-  '/ContactService/AddContact',
+  '/contacts.ContactService/AddContact',
   grpc.web.MethodType.UNARY,
-  proto.Contacts,
-  proto.Contacts,
+  proto.contacts.Contacts,
+  proto.contacts.Contacts,
   /**
-   * @param {!proto.Contacts} request
+   * @param {!proto.contacts.Contacts} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.Contacts.deserializeBinary
+  proto.contacts.Contacts.deserializeBinary
 );
 
 
 /**
- * @param {!proto.Contacts} request The
+ * @param {!proto.contacts.Contacts} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.Contacts)}
+ * @param {function(?grpc.web.RpcError, ?proto.contacts.Contacts)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.Contacts>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.contacts.Contacts>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.ContactServiceClient.prototype.addContact =
+proto.contacts.ContactServiceClient.prototype.addContact =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/ContactService/AddContact',
+      '/contacts.ContactService/AddContact',
       request,
       metadata || {},
       methodDescriptor_ContactService_AddContact,
@@ -178,17 +179,17 @@ proto.ContactServiceClient.prototype.addContact =
 
 
 /**
- * @param {!proto.Contacts} request The
+ * @param {!proto.contacts.Contacts} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.Contacts>}
+ * @return {!Promise<!proto.contacts.Contacts>}
  *     Promise that resolves to the response
  */
-proto.ContactServicePromiseClient.prototype.addContact =
+proto.contacts.ContactServicePromiseClient.prototype.addContact =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/ContactService/AddContact',
+      '/contacts.ContactService/AddContact',
       request,
       metadata || {},
       methodDescriptor_ContactService_AddContact);
@@ -198,39 +199,39 @@ proto.ContactServicePromiseClient.prototype.addContact =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.Contact_id,
- *   !proto.Empty>}
+ *   !proto.contacts.Contact_id,
+ *   !proto.contacts.Empty>}
  */
 const methodDescriptor_ContactService_deleteContact = new grpc.web.MethodDescriptor(
-  '/ContactService/deleteContact',
+  '/contacts.ContactService/deleteContact',
   grpc.web.MethodType.UNARY,
-  proto.Contact_id,
-  proto.Empty,
+  proto.contacts.Contact_id,
+  proto.contacts.Empty,
   /**
-   * @param {!proto.Contact_id} request
+   * @param {!proto.contacts.Contact_id} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.Empty.deserializeBinary
+  proto.contacts.Empty.deserializeBinary
 );
 
 
 /**
- * @param {!proto.Contact_id} request The
+ * @param {!proto.contacts.Contact_id} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.Empty)}
+ * @param {function(?grpc.web.RpcError, ?proto.contacts.Empty)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.Empty>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.contacts.Empty>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.ContactServiceClient.prototype.deleteContact =
+proto.contacts.ContactServiceClient.prototype.deleteContact =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/ContactService/deleteContact',
+      '/contacts.ContactService/deleteContact',
       request,
       metadata || {},
       methodDescriptor_ContactService_deleteContact,
@@ -239,17 +240,17 @@ proto.ContactServiceClient.prototype.deleteContact =
 
 
 /**
- * @param {!proto.Contact_id} request The
+ * @param {!proto.contacts.Contact_id} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.Empty>}
+ * @return {!Promise<!proto.contacts.Empty>}
  *     Promise that resolves to the response
  */
-proto.ContactServicePromiseClient.prototype.deleteContact =
+proto.contacts.ContactServicePromiseClient.prototype.deleteContact =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/ContactService/deleteContact',
+      '/contacts.ContactService/deleteContact',
       request,
       metadata || {},
       methodDescriptor_ContactService_deleteContact);
@@ -259,39 +260,39 @@ proto.ContactServicePromiseClient.prototype.deleteContact =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.Contact_id,
- *   !proto.Contacts>}
+ *   !proto.contacts.Contact_id,
+ *   !proto.contacts.Contacts>}
  */
 const methodDescriptor_ContactService_updateContact = new grpc.web.MethodDescriptor(
-  '/ContactService/updateContact',
+  '/contacts.ContactService/updateContact',
   grpc.web.MethodType.UNARY,
-  proto.Contact_id,
-  proto.Contacts,
+  proto.contacts.Contact_id,
+  proto.contacts.Contacts,
   /**
-   * @param {!proto.Contact_id} request
+   * @param {!proto.contacts.Contact_id} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.Contacts.deserializeBinary
+  proto.contacts.Contacts.deserializeBinary
 );
 
 
 /**
- * @param {!proto.Contact_id} request The
+ * @param {!proto.contacts.Contact_id} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.Contacts)}
+ * @param {function(?grpc.web.RpcError, ?proto.contacts.Contacts)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.Contacts>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.contacts.Contacts>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.ContactServiceClient.prototype.updateContact =
+proto.contacts.ContactServiceClient.prototype.updateContact =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/ContactService/updateContact',
+      '/contacts.ContactService/updateContact',
       request,
       metadata || {},
       methodDescriptor_ContactService_updateContact,
@@ -300,17 +301,17 @@ proto.ContactServiceClient.prototype.updateContact =
 
 
 /**
- * @param {!proto.Contact_id} request The
+ * @param {!proto.contacts.Contact_id} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.Contacts>}
+ * @return {!Promise<!proto.contacts.Contacts>}
  *     Promise that resolves to the response
  */
-proto.ContactServicePromiseClient.prototype.updateContact =
+proto.contacts.ContactServicePromiseClient.prototype.updateContact =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/ContactService/updateContact',
+      '/contacts.ContactService/updateContact',
       request,
       metadata || {},
       methodDescriptor_ContactService_updateContact);
@@ -320,39 +321,39 @@ proto.ContactServicePromiseClient.prototype.updateContact =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.Contact_id,
- *   !proto.Contacts>}
+ *   !proto.contacts.Contact_id,
+ *   !proto.contacts.Contacts>}
  */
 const methodDescriptor_ContactService_getContact = new grpc.web.MethodDescriptor(
-  '/ContactService/getContact',
+  '/contacts.ContactService/getContact',
   grpc.web.MethodType.UNARY,
-  proto.Contact_id,
-  proto.Contacts,
+  proto.contacts.Contact_id,
+  proto.contacts.Contacts,
   /**
-   * @param {!proto.Contact_id} request
+   * @param {!proto.contacts.Contact_id} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.Contacts.deserializeBinary
+  proto.contacts.Contacts.deserializeBinary
 );
 
 
 /**
- * @param {!proto.Contact_id} request The
+ * @param {!proto.contacts.Contact_id} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.Contacts)}
+ * @param {function(?grpc.web.RpcError, ?proto.contacts.Contacts)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.Contacts>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.contacts.Contacts>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.ContactServiceClient.prototype.getContact =
+proto.contacts.ContactServiceClient.prototype.getContact =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/ContactService/getContact',
+      '/contacts.ContactService/getContact',
       request,
       metadata || {},
       methodDescriptor_ContactService_getContact,
@@ -361,17 +362,17 @@ proto.ContactServiceClient.prototype.getContact =
 
 
 /**
- * @param {!proto.Contact_id} request The
+ * @param {!proto.contacts.Contact_id} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.Contacts>}
+ * @return {!Promise<!proto.contacts.Contacts>}
  *     Promise that resolves to the response
  */
-proto.ContactServicePromiseClient.prototype.getContact =
+proto.contacts.ContactServicePromiseClient.prototype.getContact =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/ContactService/getContact',
+      '/contacts.ContactService/getContact',
       request,
       metadata || {},
       methodDescriptor_ContactService_getContact);
@@ -381,39 +382,39 @@ proto.ContactServicePromiseClient.prototype.getContact =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.Empty,
- *   !proto.Empty>}
+ *   !proto.contacts.Empty,
+ *   !proto.contacts.Empty>}
  */
 const methodDescriptor_ContactService_createDatabase = new grpc.web.MethodDescriptor(
-  '/ContactService/createDatabase',
+  '/contacts.ContactService/createDatabase',
   grpc.web.MethodType.UNARY,
-  proto.Empty,
-  proto.Empty,
+  proto.contacts.Empty,
+  proto.contacts.Empty,
   /**
-   * @param {!proto.Empty} request
+   * @param {!proto.contacts.Empty} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.Empty.deserializeBinary
+  proto.contacts.Empty.deserializeBinary
 );
 
 
 /**
- * @param {!proto.Empty} request The
+ * @param {!proto.contacts.Empty} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.Empty)}
+ * @param {function(?grpc.web.RpcError, ?proto.contacts.Empty)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.Empty>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.contacts.Empty>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.ContactServiceClient.prototype.createDatabase =
+proto.contacts.ContactServiceClient.prototype.createDatabase =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/ContactService/createDatabase',
+      '/contacts.ContactService/createDatabase',
       request,
       metadata || {},
       methodDescriptor_ContactService_createDatabase,
@@ -422,17 +423,17 @@ proto.ContactServiceClient.prototype.createDatabase =
 
 
 /**
- * @param {!proto.Empty} request The
+ * @param {!proto.contacts.Empty} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.Empty>}
+ * @return {!Promise<!proto.contacts.Empty>}
  *     Promise that resolves to the response
  */
-proto.ContactServicePromiseClient.prototype.createDatabase =
+proto.contacts.ContactServicePromiseClient.prototype.createDatabase =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/ContactService/createDatabase',
+      '/contacts.ContactService/createDatabase',
       request,
       metadata || {},
       methodDescriptor_ContactService_createDatabase);
@@ -442,39 +443,39 @@ proto.ContactServicePromiseClient.prototype.createDatabase =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.Empty,
- *   !proto.Empty>}
+ *   !proto.contacts.Empty,
+ *   !proto.contacts.Empty>}
  */
 const methodDescriptor_ContactService_deleteDatabase = new grpc.web.MethodDescriptor(
-  '/ContactService/deleteDatabase',
+  '/contacts.ContactService/deleteDatabase',
   grpc.web.MethodType.UNARY,
-  proto.Empty,
-  proto.Empty,
+  proto.contacts.Empty,
+  proto.contacts.Empty,
   /**
-   * @param {!proto.Empty} request
+   * @param {!proto.contacts.Empty} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.Empty.deserializeBinary
+  proto.contacts.Empty.deserializeBinary
 );
 
 
 /**
- * @param {!proto.Empty} request The
+ * @param {!proto.contacts.Empty} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.Empty)}
+ * @param {function(?grpc.web.RpcError, ?proto.contacts.Empty)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.Empty>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.contacts.Empty>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.ContactServiceClient.prototype.deleteDatabase =
+proto.contacts.ContactServiceClient.prototype.deleteDatabase =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/ContactService/deleteDatabase',
+      '/contacts.ContactService/deleteDatabase',
       request,
       metadata || {},
       methodDescriptor_ContactService_deleteDatabase,
@@ -483,22 +484,22 @@ proto.ContactServiceClient.prototype.deleteDatabase =
 
 
 /**
- * @param {!proto.Empty} request The
+ * @param {!proto.contacts.Empty} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.Empty>}
+ * @return {!Promise<!proto.contacts.Empty>}
  *     Promise that resolves to the response
  */
-proto.ContactServicePromiseClient.prototype.deleteDatabase =
+proto.contacts.ContactServicePromiseClient.prototype.deleteDatabase =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/ContactService/deleteDatabase',
+      '/contacts.ContactService/deleteDatabase',
       request,
       metadata || {},
       methodDescriptor_ContactService_deleteDatabase);
 };
 
 
-module.exports = proto;
+module.exports = proto.contacts;
 

@@ -1,5 +1,5 @@
 <script setup>
-import { mdiMonitorCellphone, mdiTableBorder, mdiTableOff } from "@mdi/js";
+import { mdiTableBorder, mdiAccountMultiple } from "@mdi/js";
 import SectionMain from "@/components/SectionMain.vue";
 import NotificationBar from "@/components/NotificationBar.vue";
 import TableSampleClients from "@/components/TableSampleClients.vue";
@@ -17,15 +17,15 @@ import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.
         main
       >
       </SectionTitleLineWithButton>
-      <NotificationBar color="info" :icon="mdiMonitorCellphone">
-        <b>Responsive table.</b> Collapses on mobile
+      <NotificationBar color="info" :icon="mdiAccountMultiple">
+        <b>Success Edit</b>
       </NotificationBar>
-      <NotificationBar color="danger" :icon="mdiTableOff">
-        <b>Empty table.</b> When there's nothing to show
+      <NotificationBar color="danger" :icon="mdiAccountMultiple">
+        <b>Success Delete</b>
       </NotificationBar>
 
       <CardBox class="mb-6" has-table>
-        <TableSampleClients checkable />
+        <TableSampleClients checkable nopaginate />
       </CardBox>
     </SectionMain>
   </LayoutAuthenticated>

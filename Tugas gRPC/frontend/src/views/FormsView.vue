@@ -8,14 +8,14 @@ import {
 } from "@mdi/js";
 import SectionMain from "@/components/SectionMain.vue";
 import CardBox from "@/components/CardBox.vue";
-import FormCheckRadioGroup from "@/components/FormCheckRadioGroup.vue";
-import FormFilePicker from "@/components/FormFilePicker.vue";
+// import FormCheckRadioGroup from "@/components/FormCheckRadioGroup.vue";
+// import FormFilePicker from "@/components/FormFilePicker.vue";
 import FormField from "@/components/FormField.vue";
 import FormControl from "@/components/FormControl.vue";
 import BaseDivider from "@/components/BaseDivider.vue";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseButtons from "@/components/BaseButtons.vue";
-import SectionTitle from "@/components/SectionTitle.vue";
+// import SectionTitle from "@/components/SectionTitle.vue";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
 import { useMainStore } from "@/stores/main.js";
@@ -24,12 +24,12 @@ const MAIN = useMainStore();
 
 const selectOptions = ["None", "Marketing", "Sales", "Support"];
 
-const customElementsForm = reactive({
-  checkbox: ["lorem"],
-  radio: "one",
-  switch: ["one"],
-  file: null,
-});
+// const customElementsForm = reactive({
+//   checkbox: ["lorem"],
+//   radio: "one",
+//   switch: ["one"],
+//   file: null,
+// });
 
 const submit = () => {
   //
@@ -115,7 +115,7 @@ const addDetails = () => {
       </CardBox>
     </SectionMain>
 
-    <SectionTitle>Custom elements</SectionTitle>
+    <!-- <SectionTitle>Custom elements</SectionTitle>
 
     <SectionMain>
       <CardBox>
@@ -153,6 +153,6 @@ const addDetails = () => {
 
         <FormFilePicker v-model="customElementsForm.file" label="Upload" />
       </CardBox>
-    </SectionMain>
+    </SectionMain> -->
   </LayoutAuthenticated>
 </template>
