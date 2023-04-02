@@ -21,8 +21,7 @@ import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.
 import { useMainStore } from "@/stores/main.js";
 
 const MAIN = useMainStore();
-
-const selectOptions = ["None", "Marketing", "Sales", "Support"];
+MAIN.resetInput();
 
 // const customElementsForm = reactive({
 //   checkbox: ["lorem"],
@@ -58,7 +57,7 @@ const addDetails = () => {
             v-model="MAIN.input.email"
             type="email"
             :icon="mdiMail"
-            placeholder="Your phone email"
+            placeholder="Your email"
           />
         </FormField>
 
@@ -71,7 +70,7 @@ const addDetails = () => {
         </FormField>
 
         <FormField label="Category">
-          <FormControl v-model="MAIN.input.category" :options="selectOptions" />
+          <FormControl v-model="MAIN.input.category" :options="MAIN.category" />
         </FormField>
 
         <BaseDivider />
@@ -81,7 +80,7 @@ const addDetails = () => {
 
         <div class="mt-5" :class="{ hidden: !details }">
           <FormField label="Other Social Media">
-            <FormControl :options="selectOptions" />
+            <FormControl :options="MAIN.category" />
             <FormControl
               v-model="MAIN.input.email"
               type="email"

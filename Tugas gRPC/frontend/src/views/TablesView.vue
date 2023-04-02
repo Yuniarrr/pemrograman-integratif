@@ -6,6 +6,10 @@ import TableSampleClients from "@/components/TableSampleClients.vue";
 import CardBox from "@/components/CardBox.vue";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
+
+import { useMainStore } from "@/stores/main.js";
+
+const mainStore = useMainStore();
 </script>
 
 <template>
@@ -17,10 +21,18 @@ import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.
         main
       >
       </SectionTitleLineWithButton>
-      <NotificationBar color="info" :icon="mdiAccountMultiple">
+      <NotificationBar
+        v-if="mainStore.is_edit"
+        color="info"
+        :icon="mdiAccountMultiple"
+      >
         <b>Success Edit</b>
       </NotificationBar>
-      <NotificationBar color="danger" :icon="mdiAccountMultiple">
+      <NotificationBar
+        v-if="mainStore.is_delete"
+        color="danger"
+        :icon="mdiAccountMultiple"
+      >
         <b>Success Delete</b>
       </NotificationBar>
 

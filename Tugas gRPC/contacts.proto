@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package contacts;
+
+service ContactService {
+  // contact
+  rpc getAllContacts (User_id) returns (ContactList) {}
+  rpc AddContact (ContactRequest) returns (ContactResponse) {}
+  rpc deleteContact (Contact_id) returns (ContactResponse) {};
+  rpc updateContact (Contacts) returns (ContactResponse) {};
+  rpc getContact (Contact_id) returns (Contacts) {};
+
+  // user
+  rpc addUser (UserRequest) returns (UserResponse) {};
+  rpc getUser (UserRequest) returns (User) {};
+  rpc getAllUsers (Empty) returns (UserList) {};
+}
+
+message User_id {
+  string user_id = 1;
+}
+
+message Contacts {
+  string _id = 1;
+  string user_id = 2;
+  string nama = 3;
+  string email = 4;
+  string phone = 5;
+  string category = 6;
+  string description = 7;
+}
+
+message ContactRequest {
+  string user_id = 1;
+  string nama = 2;
+  string email = 3;
+  string phone = 4;
+  string category = 5;
+  string description = 6;
+}
+
+message Contact_id {
+  string _id = 1;
+  string user_id = 2; 
+}
+
+message ContactResponse {
+  string message = 1;
+}
+
+message Empty {}
+
+message ContactList {
+  repeated Contacts contacts = 1;
+}
+
+message User {
+  string _id = 1;
+  string name = 2;
+  string email = 3;
+  string password = 4;
+  string token = 5;
+}
+
+message UserList {
+  repeated User users = 1;
+}
+
+message UserRequest {
+  string nama = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message UserResponse {
+  string message = 1;
+}

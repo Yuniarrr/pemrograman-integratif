@@ -28,13 +28,17 @@ onMounted(() => {
 
 const mainStore = useMainStore();
 
-const clientBarItems = computed(() => mainStore.clients.slice(0, 4));
+const clientBarItems = computed(() => mainStore.contacts.slice(0, 4));
 </script>
 
 <template>
   <LayoutAuthenticated>
     <SectionMain>
-      <NotificationBar color="info" :icon="mdiAccountMultiple">
+      <NotificationBar
+        v-if="mainStore.notification"
+        color="info"
+        :icon="mdiAccountMultiple"
+      >
         <b>Success Add Contact</b>
       </NotificationBar>
 
@@ -51,8 +55,8 @@ const clientBarItems = computed(() => mainStore.clients.slice(0, 4));
           trend-type="up"
           color="text-emerald-500"
           :icon="mdiAccountMultiple"
-          :number="512"
-          label="Clients"
+          :number="mainStore.contacts.length"
+          label="Contacts"
         />
         <CardBoxWidget
           trend="12%"
@@ -76,19 +80,21 @@ const clientBarItems = computed(() => mainStore.clients.slice(0, 4));
         <div class="flex flex-col justify-between">
           <CardBoxClient
             v-for="client in clientBarItems"
-            :key="client.id"
-            :name="client.name"
-            :login="client.login"
-            :date="client.created"
+            :key="client._id"
+            :name="client.nama"
+            :login="client.phone"
+            :date="client.email"
+            :avatar="client.avatar"
           />
         </div>
         <div class="flex flex-col justify-between">
           <CardBoxClient
             v-for="client in clientBarItems"
-            :key="client.id"
-            :name="client.name"
-            :login="client.login"
-            :date="client.created"
+            :key="client._id"
+            :name="client.nama"
+            :login="client.phone"
+            :date="client.email"
+            :avatar="client.avatar"
           />
         </div>
       </div>

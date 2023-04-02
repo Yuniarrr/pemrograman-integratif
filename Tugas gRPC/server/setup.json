@@ -1,0 +1,7 @@
+{
+    "username": "admin",
+    "password": "pass12345",
+    "port_grpc": "50051",
+    "port_api": "5000",
+    "secret": "4UTH4CC0UNT"
+}

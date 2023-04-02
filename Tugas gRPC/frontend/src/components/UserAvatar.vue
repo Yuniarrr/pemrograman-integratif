@@ -10,21 +10,22 @@ const props = defineProps({
     type: String,
     default: null,
   },
-  api: {
-    type: String,
-    default: "avataaars",
-  },
+  // api: {
+  //   type: String,
+  //   default: "avataaars",
+  // },
 });
 
-const avatar = computed(
-  () =>
-    props.avatar ??
-    `https://avatars.dicebear.com/api/${props.api}/${props.username.replace(
-      /[^a-z0-9]+/i,
-      "-"
-    )}.svg`
-);
+// const avatar = computed(
+//   () =>
+//     props.avatar ??
+//     `https://avatars.dicebear.com/api/${props.api}/${props.username.replace(
+//       /[^a-z0-9]+/i,
+//       "-"
+//     )}.svg`
+// );
 
+const avatar = computed(() => props.avatar);
 const username = computed(() => props.username);
 </script>
 

@@ -6,6 +6,7 @@ import BaseButtons from "@/components/BaseButtons.vue";
 import CardBox from "@/components/CardBox.vue";
 import OverlayLayer from "@/components/OverlayLayer.vue";
 import CardBoxComponentTitle from "@/components/CardBoxComponentTitle.vue";
+import { useMainStore } from "@/stores/main";
 
 const props = defineProps({
   title: {
@@ -21,11 +22,25 @@ const props = defineProps({
     default: "Done",
   },
   hasCancel: Boolean,
+  isEdit: {
+    type: Boolean,
+    default: false,
+  },
+  isDelete: {
+    type: Boolean,
+    default: false,
+  },
   modelValue: {
     type: [String, Number, Boolean],
     default: null,
   },
+  id: {
+    type: String,
+    default: null,
+  },
 });
+
+const mainStore = useMainStore();
 
 const emit = defineEmits(["update:modelValue", "cancel", "confirm"]);
 
@@ -34,12 +49,24 @@ const value = computed({
   set: (value) => emit("update:modelValue", value),
 });
 
+const is_edit = computed(() => props.isEdit);
+const is_delete = computed(() => props.isDelete);
+const id = computed(() => props.id);
+
 const confirmCancel = (mode) => {
   value.value = false;
   emit(mode);
 };
 
-const confirm = () => confirmCancel("confirm");
+const confirm = () => {
+  confirmCancel("confirm");
+  if (is_edit.value) {
+    mainStore.updateContact(id.value);
+  }
+  if (is_delete.value) {
+    mainStore.deleteContact(id.value);
+  }
+};
 
 const cancel = () => confirmCancel("cancel");
 
@@ -74,7 +101,24 @@ window.addEventListener("keydown", (e) => {
 
       <template #footer>
         <BaseButtons>
-          <BaseButton :label="buttonLabel" :color="button" @click="confirm" />
+          <BaseButton
+            v-if="!isEdit && !isDelete"
+            :label="buttonLabel"
+            :color="button"
+            @click="confirm"
+          />
+          <BaseButton
+            v-if="isEdit"
+            :label="`Save`"
+            :color="button"
+            @click="confirm"
+          />
+          <BaseButton
+            v-if="isDelete"
+            :label="`Delete`"
+            :color="button"
+            @click="confirm"
+          />
           <BaseButton
             v-if="hasCancel"
             label="Cancel"

@@ -9,6 +9,7 @@ import BaseButtons from "@/components/BaseButtons.vue";
 import BaseButton from "@/components/BaseButton.vue";
 import UserAvatar from "@/components/UserAvatar.vue";
 import FormControl from "@/components/FormControl.vue";
+import FormField from "@/components/FormField.vue";
 
 defineProps({
   checkable: Boolean,
@@ -17,7 +18,8 @@ defineProps({
 
 const mainStore = useMainStore();
 
-const items = computed(() => mainStore.clients);
+const items = computed(() => mainStore.contacts);
+const contact = computed(() => mainStore.input);
 
 const isReadActive = ref(false);
 const isEditActive = ref(false);
@@ -42,11 +44,9 @@ const currentPageHuman = computed(() => currentPage.value + 1);
 
 const pagesList = computed(() => {
   const pagesList = [];
-
   for (let i = 0; i < numPages.value; i++) {
     pagesList.push(i);
   }
-
   return pagesList;
 });
 
@@ -76,25 +76,48 @@ const checked = (isChecked, client) => {
 
 <template>
   <CardBoxModal v-model="isReadActive" title="Contact">
-    <!-- <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-    <p>This is sample modal</p> -->
-    <div class="flex flex-col -mb-5 flex-wrap gap-y-3">
-      <div class="flex flex-row">
+    <div class="flex flex-col -mb-5 flex-wrap gap-y-1">
+      <div class="flex flex-row -mb-6">
         <span class="w-1/3">Nama</span>
-        <span class="w-2/3">p</span>
+        <span class="w-2/3">{{ contact.nama }}</span>
       </div>
       <div class="flex flex-row">
-        <span class="w-1/3">Nama</span>
-        <span class="w-2/3">p</span>
+        <span class="w-1/3">Phone</span>
+        <span class="w-2/3">{{ contact.phone }}</span>
+      </div>
+      <div class="flex flex-row">
+        <span class="w-1/3">Email</span>
+        <span class="w-2/3">{{ contact.email }}</span>
+      </div>
+      <div class="flex flex-row">
+        <span class="w-1/3">Category</span>
+        <span class="w-2/3">{{ contact.category }}</span>
+      </div>
+      <div class="flex flex-row">
+        <span class="w-1/3">Description</span>
+        <span class="w-2/3">{{
+          contact.description == "" ? `None` : contact.description
+        }}</span>
       </div>
     </div>
   </CardBoxModal>
 
-  <CardBoxModal v-model="isEditActive" title="Edit Contact" has-cancel>
+  <CardBoxModal
+    :id="mainStore.input._id"
+    v-model="isEditActive"
+    title="Edit Contact"
+    has-cancel
+    :is-edit="true"
+  >
     <div class="flex flex-col -mb-5 flex-wrap gap-y-5">
+      <div class="flex flex-row items-center">
+        <span class="w-1/3 text-lg">Id</span>
+        <span class="w-1/3 text-lg">{{ mainStore.input._id }}</span>
+      </div>
       <div class="flex flex-row items-center">
         <span class="w-1/3 text-lg">Nama</span>
         <FormControl
+          v-model="mainStore.input.nama"
           type="email"
           :icon="mdiMail"
           placeholder="Your phone email"
@@ -102,11 +125,41 @@ const checked = (isChecked, client) => {
         />
       </div>
       <div class="flex flex-row items-center">
-        <span class="w-1/3 text-lg">Nama</span>
+        <span class="w-1/3 text-lg">Phone</span>
         <FormControl
+          v-model="mainStore.input.phone"
           type="email"
           :icon="mdiMail"
           placeholder="Your phone email"
+          class="w-2/3"
+        />
+      </div>
+      <div class="flex flex-row items-center">
+        <span class="w-1/3 text-lg">Email</span>
+        <FormControl
+          v-model="mainStore.input.email"
+          type="email"
+          :icon="mdiMail"
+          placeholder="Your phone email"
+          class="w-2/3"
+        />
+      </div>
+      <div class="flex flex-row items-center">
+        <span class="w-1/3 text-lg">Category</span>
+        <!-- <FormField> -->
+        <FormControl
+          v-model="mainStore.input.category"
+          :options="mainStore.category"
+        />
+        <!-- </FormField> -->
+      </div>
+      <div class="flex flex-row items-center">
+        <span class="w-1/3 text-lg">Description</span>
+        <FormControl
+          v-model="mainStore.input.description"
+          type="email"
+          :icon="mdiMail"
+          placeholder="Your phone description"
           class="w-2/3"
         />
       </div>
@@ -114,13 +167,18 @@ const checked = (isChecked, client) => {
   </CardBoxModal>
 
   <CardBoxModal
+    :id="mainStore.input._id"
     v-model="isDeleteActive"
     title="Please confirm"
     button="danger"
     has-cancel
+    :is-delete="true"
   >
-    <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-    <p>This is sample modal</p>
+    <p>
+      Delete contact <b>{{ mainStore.input.nama }}</b
+      >?
+    </p>
+    <p>{{ mainStore.input._id }}</p>
   </CardBoxModal>
 
   <div v-if="checkedRows.length" class="p-3 bg-gray-100/50 dark:bg-slate-800">
@@ -138,10 +196,11 @@ const checked = (isChecked, client) => {
       <tr>
         <th v-if="checkable" />
         <th />
+        <th>id</th>
         <th>Name</th>
-        <th>Company</th>
-        <th>City</th>
-        <th>Created</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Category</th>
         <th />
       </tr>
     </thead>
@@ -153,24 +212,28 @@ const checked = (isChecked, client) => {
         />
         <td class="border-b-0 lg:w-6 before:hidden">
           <UserAvatar
-            :username="client.name"
+            :username="client.nama"
+            :avatar="client.avatar"
             class="w-24 h-24 mx-auto lg:w-6 lg:h-6"
           />
         </td>
+        <td data-label="Email">
+          {{ client._id }}
+        </td>
         <td data-label="Name">
-          {{ client.name }}
+          {{ client.nama }}
         </td>
-        <td data-label="Company">
-          {{ client.company }}
+        <td data-label="Phone">
+          {{ client.phone }}
         </td>
-        <td data-label="City">
-          {{ client.city }}
+        <td data-label="Email">
+          {{ client.email }}
         </td>
         <td data-label="Created" class="lg:w-1 whitespace-nowrap">
           <small
             class="text-gray-500 dark:text-slate-400"
-            :title="client.created"
-            >{{ client.created }}</small
+            :title="client.category"
+            >{{ client.category }}</small
           >
         </td>
         <td class="before:hidden lg:w-1 whitespace-nowrap">
@@ -179,19 +242,19 @@ const checked = (isChecked, client) => {
               color="info"
               :icon="mdiEye"
               small
-              @click="isReadActive = true"
+              @click="(isReadActive = true), mainStore.getContact(client._id)"
             />
             <BaseButton
               color="success"
               :icon="mdiBookEdit"
               small
-              @click="isEditActive = true"
+              @click="(isEditActive = true), mainStore.getContact(client._id)"
             />
             <BaseButton
               color="danger"
               :icon="mdiTrashCan"
               small
-              @click="isDeleteActive = true"
+              @click="(isDeleteActive = true), mainStore.getContact(client._id)"
             />
           </BaseButtons>
         </td>
@@ -219,24 +282,25 @@ const checked = (isChecked, client) => {
         />
         <td class="border-b-0 lg:w-6 before:hidden">
           <UserAvatar
-            :username="client.name"
+            :username="client.nama"
+            :avatar="client.avatar"
             class="w-24 h-24 mx-auto lg:w-6 lg:h-6"
           />
         </td>
         <td data-label="Name">
-          {{ client.name }}
+          {{ client.nama }}
         </td>
-        <td data-label="Company">
-          {{ client.company }}
+        <td data-label="Phone">
+          {{ client.phone }}
         </td>
-        <td data-label="City">
-          {{ client.city }}
+        <td data-label="Email">
+          {{ client.email }}
         </td>
         <td data-label="Created" class="lg:w-1 whitespace-nowrap">
           <small
             class="text-gray-500 dark:text-slate-400"
-            :title="client.created"
-            >{{ client.created }}</small
+            :title="client.category"
+            >{{ client.category }}</small
           >
         </td>
         <td class="before:hidden lg:w-1 whitespace-nowrap">
@@ -245,19 +309,19 @@ const checked = (isChecked, client) => {
               color="info"
               :icon="mdiEye"
               small
-              @click="isReadActive = true"
+              @click="(isReadActive = true), mainStore.getContact(client._id)"
             />
             <BaseButton
               color="success"
               :icon="mdiBookEdit"
               small
-              @click="isEditActive = true"
+              @click="(isEditActive = true), mainStore.getContact(client._id)"
             />
             <BaseButton
               color="danger"
               :icon="mdiTrashCan"
               small
-              @click="isDeleteActive = true"
+              @click="(isDeleteActive = true), mainStore.getContact(client._id)"
             />
           </BaseButtons>
         </td>

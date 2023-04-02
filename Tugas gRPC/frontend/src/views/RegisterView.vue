@@ -1,7 +1,6 @@
 <script setup>
-import { reactive } from "vue";
 import { useRouter } from "vue-router";
-import { mdiAccount, mdiAsterisk } from "@mdi/js";
+import { mdiAccount, mdiAsterisk, mdiMail } from "@mdi/js";
 import SectionFullScreen from "@/components/SectionFullScreen.vue";
 import CardBox from "@/components/CardBox.vue";
 import FormField from "@/components/FormField.vue";
@@ -10,16 +9,13 @@ import BaseButton from "@/components/BaseButton.vue";
 import BaseButtons from "@/components/BaseButtons.vue";
 import LayoutGuest from "@/layouts/LayoutGuest.vue";
 
-const form = reactive({
-  login: "john.doe",
-  pass: "highly-secure-password-fYjUw-",
-  remember: true,
-});
+import { useMainStore } from "@/stores/main.js";
+const mainStore = useMainStore();
 
 const router = useRouter();
 
 const submit = () => {
-  router.push("/dashboard");
+  router.push("/");
 };
 </script>
 
@@ -29,15 +25,27 @@ const submit = () => {
       <CardBox :class="cardClass" is-form @submit.prevent="submit">
         <FormField label="Username" help="Please enter your username">
           <FormControl
-            v-model="form.login"
+            v-model="mainStore.user.name"
             :icon="mdiAccount"
             name="login"
             autocomplete="username"
+            placeholder="name"
+          />
+        </FormField>
+
+        <FormField label="Username" help="Please enter your email">
+          <FormControl
+            v-model="mainStore.user.email"
+            :icon="mdiMail"
+            name="login"
+            autocomplete="username"
+            placeholder="name"
           />
         </FormField>
 
         <FormField label="Password" help="Please enter your password">
           <FormControl
+            v-model="mainStore.user.password"
             :icon="mdiAsterisk"
             type="password"
             name="password"
@@ -48,6 +56,7 @@ const submit = () => {
 
         <FormField label="Confirm Password" help="Please enter your password">
           <FormControl
+            v-model="mainStore.user.confirm"
             :icon="mdiAsterisk"
             type="password"
             name="password"
@@ -57,8 +66,8 @@ const submit = () => {
         </FormField>
 
         <template #footer>
-          <BaseButtons>
-            <BaseButton type="submit" color="info" label="Regis" />
+          <BaseButtons class="flex justify-center">
+            <BaseButton type="submit" color="info" label="Register" />
             <BaseButton to="/" color="info" outline label="Back" />
           </BaseButtons>
         </template>

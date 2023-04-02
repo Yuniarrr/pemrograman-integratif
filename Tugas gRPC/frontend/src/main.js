@@ -1,4 +1,4 @@
-import { createApp } from "vue";
+import { createApp, markRaw } from "vue";
 import { createPinia } from "pinia";
 
 import App from "./App.vue";
@@ -12,6 +12,10 @@ import "./css/main.css";
 /* Init Pinia */
 const pinia = createPinia();
 
+pinia.use(({ store }) => {
+  store.router = markRaw(router);
+});
+
 /* Create Vue app */
 createApp(App).use(router).use(pinia).mount("#app");
 
@@ -20,8 +24,9 @@ const mainStore = useMainStore(pinia);
 const styleStore = useStyleStore(pinia);
 
 /* Fetch sample data */
-mainStore.fetch("clients");
-mainStore.fetch("history");
+// mainStore.fetch("clients");
+// mainStore.fetch("history");
+mainStore.getContacts();
 
 /* App style */
 styleStore.setStyle(localStorage[styleKey] ?? "basic");
