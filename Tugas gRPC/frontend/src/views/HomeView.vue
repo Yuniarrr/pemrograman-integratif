@@ -3,8 +3,8 @@ import { computed, ref, onMounted } from "vue";
 import { useMainStore } from "@/stores/main";
 import {
   mdiAccountMultiple,
-  mdiCartOutline,
   mdiChartTimelineVariant,
+  mdiContacts,
 } from "@mdi/js";
 import * as chartConfig from "@/components/Charts/chart.config.js";
 import SectionMain from "@/components/SectionMain.vue";
@@ -26,9 +26,19 @@ onMounted(() => {
   fillChartData();
 });
 
+const family = computed(() => {
+  return mainStore.contacts.filter((item) => item.category == "Family");
+});
+
+const none = computed(() => {
+  return mainStore.contacts.filter((item) => item.category == "none");
+});
+
 const mainStore = useMainStore();
 
 const clientBarItems = computed(() => mainStore.contacts.slice(0, 4));
+
+const clientBarItems2 = computed(() => mainStore.contacts.slice(4, 8));
 </script>
 
 <template>
@@ -56,23 +66,23 @@ const clientBarItems = computed(() => mainStore.contacts.slice(0, 4));
           color="text-emerald-500"
           :icon="mdiAccountMultiple"
           :number="mainStore.contacts.length"
-          label="Contacts"
+          label="All Contacts"
         />
         <CardBoxWidget
           trend="12%"
           trend-type="down"
           color="text-blue-500"
-          :icon="mdiCartOutline"
-          :number="7770"
-          label="Sales"
+          :icon="mdiContacts"
+          :number="family.length"
+          label="Category: Family"
         />
         <CardBoxWidget
           trend="Overflow"
           trend-type="alert"
           color="text-red-500"
-          :icon="mdiChartTimelineVariant"
-          :number="256"
-          label="Performance"
+          :icon="mdiContacts"
+          :number="none.length"
+          label="Category: None"
         />
       </div>
 
@@ -89,7 +99,7 @@ const clientBarItems = computed(() => mainStore.contacts.slice(0, 4));
         </div>
         <div class="flex flex-col justify-between">
           <CardBoxClient
-            v-for="client in clientBarItems"
+            v-for="client in clientBarItems2"
             :key="client._id"
             :name="client.nama"
             :login="client.phone"

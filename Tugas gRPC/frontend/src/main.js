@@ -16,6 +16,18 @@ pinia.use(({ store }) => {
   store.router = markRaw(router);
 });
 
+router.beforeEach((to, from, next) => {
+  const publicPages = ["/login", "/signup"];
+  const authRequired = !publicPages.includes(to.path);
+  const token = localStorage.getItem("token");
+
+  if (authRequired && !token) {
+    return next("/login");
+  }
+
+  next();
+});
+
 /* Create Vue app */
 createApp(App).use(router).use(pinia).mount("#app");
 

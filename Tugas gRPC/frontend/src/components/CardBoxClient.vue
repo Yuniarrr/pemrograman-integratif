@@ -32,23 +32,6 @@ const props = defineProps({
     default: null,
   },
 });
-
-const pillType = computed(() => {
-  if (props.type) {
-    return props.type;
-  }
-
-  return "info";
-});
-
-const pillIcon = computed(() => {
-  return {
-    success: mdiTrendingUp,
-    warning: mdiTrendingNeutral,
-    danger: mdiTrendingDown,
-    info: null,
-  }[pillType.value];
-});
 </script>
 
 <template>

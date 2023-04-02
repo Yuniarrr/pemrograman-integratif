@@ -111,10 +111,6 @@ const checked = (isChecked, client) => {
   >
     <div class="flex flex-col -mb-5 flex-wrap gap-y-5">
       <div class="flex flex-row items-center">
-        <span class="w-1/3 text-lg">Id</span>
-        <span class="w-1/3 text-lg">{{ mainStore.input._id }}</span>
-      </div>
-      <div class="flex flex-row items-center">
         <span class="w-1/3 text-lg">Nama</span>
         <FormControl
           v-model="mainStore.input.nama"
@@ -194,9 +190,7 @@ const checked = (isChecked, client) => {
   <table v-if="nopaginate">
     <thead>
       <tr>
-        <th v-if="checkable" />
         <th />
-        <th>id</th>
         <th>Name</th>
         <th>Phone</th>
         <th>Email</th>
@@ -206,19 +200,12 @@ const checked = (isChecked, client) => {
     </thead>
     <tbody>
       <tr v-for="client in items" :key="client.id">
-        <TableCheckboxCell
-          v-if="checkable"
-          @checked="checked($event, client)"
-        />
         <td class="border-b-0 lg:w-6 before:hidden">
           <UserAvatar
             :username="client.nama"
             :avatar="client.avatar"
             class="w-24 h-24 mx-auto lg:w-6 lg:h-6"
           />
-        </td>
-        <td data-label="Email">
-          {{ client._id }}
         </td>
         <td data-label="Name">
           {{ client.nama }}
@@ -268,9 +255,9 @@ const checked = (isChecked, client) => {
         <th v-if="checkable" />
         <th />
         <th>Name</th>
-        <th>Company</th>
-        <th>City</th>
-        <th>Created</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Category</th>
         <th />
       </tr>
     </thead>

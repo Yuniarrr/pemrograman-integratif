@@ -25,7 +25,7 @@ const submit = () => {
       <CardBox :class="cardClass" is-form @submit.prevent="submit">
         <FormField label="Username" help="Please enter your username">
           <FormControl
-            v-model="mainStore.user.name"
+            v-model="mainStore.user.nama"
             :icon="mdiAccount"
             name="login"
             autocomplete="username"
@@ -33,7 +33,7 @@ const submit = () => {
           />
         </FormField>
 
-        <FormField label="Username" help="Please enter your email">
+        <FormField label="Email" help="Please enter your email">
           <FormControl
             v-model="mainStore.user.email"
             :icon="mdiMail"
@@ -54,21 +54,14 @@ const submit = () => {
           />
         </FormField>
 
-        <FormField label="Confirm Password" help="Please enter your password">
-          <FormControl
-            v-model="mainStore.user.confirm"
-            :icon="mdiAsterisk"
-            type="password"
-            name="password"
-            autocomplete="current-password"
-            placeholder="********"
-          />
-        </FormField>
-
         <template #footer>
           <BaseButtons class="flex justify-center">
-            <BaseButton type="submit" color="info" label="Register" />
-            <BaseButton to="/" color="info" outline label="Back" />
+            <BaseButton
+              color="info"
+              label="Register"
+              @click="mainStore.register"
+            />
+            <!-- <BaseButton to="/" color="info" outline label="Back" /> -->
           </BaseButtons>
         </template>
       </CardBox>

@@ -79,15 +79,6 @@ const addDetails = () => {
         </span>
 
         <div class="mt-5" :class="{ hidden: !details }">
-          <FormField label="Other Social Media">
-            <FormControl :options="MAIN.category" />
-            <FormControl
-              v-model="MAIN.input.email"
-              type="email"
-              :icon="mdiAccountMultiplePlus"
-              placeholder="Your social media"
-            />
-          </FormField>
           <FormField
             label="Description"
             help="Your description. Max 255 characters"
@@ -113,45 +104,5 @@ const addDetails = () => {
         </template>
       </CardBox>
     </SectionMain>
-
-    <!-- <SectionTitle>Custom elements</SectionTitle>
-
-    <SectionMain>
-      <CardBox>
-        <FormField label="Checkbox">
-          <FormCheckRadioGroup
-            v-model="customElementsForm.checkbox"
-            name="sample-checkbox"
-            :options="{ lorem: 'Lorem', ipsum: 'Ipsum', dolore: 'Dolore' }"
-          />
-        </FormField>
-
-        <BaseDivider />
-
-        <FormField label="Radio">
-          <FormCheckRadioGroup
-            v-model="customElementsForm.radio"
-            name="sample-radio"
-            type="radio"
-            :options="{ one: 'One', two: 'Two' }"
-          />
-        </FormField>
-
-        <BaseDivider />
-
-        <FormField label="Switch">
-          <FormCheckRadioGroup
-            v-model="customElementsForm.switch"
-            name="sample-switch"
-            type="switch"
-            :options="{ one: 'One', two: 'Two' }"
-          />
-        </FormField>
-
-        <BaseDivider />
-
-        <FormFilePicker v-model="customElementsForm.file" label="Upload" />
-      </CardBox>
-    </SectionMain> -->
   </LayoutAuthenticated>
 </template>

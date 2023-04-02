@@ -1,12 +1,7 @@
 import {
-  mdiAccountCircle,
   mdiMonitor,
-  mdiLock,
-  mdiAlertCircle,
   mdiSquareEditOutline,
   mdiTable,
-  mdiViewList,
-  mdiAccountPlusOutline,
 } from "@mdi/js";
 
 export default [
@@ -22,39 +17,7 @@ export default [
   },
   {
     to: "/forms",
-    label: "Forms",
+    label: "Add Contact",
     icon: mdiSquareEditOutline,
-  },
-  {
-    to: "/profile",
-    label: "Profile",
-    icon: mdiAccountCircle,
-  },
-  {
-    to: "/login",
-    label: "Login",
-    icon: mdiLock,
-  },
-  {
-    to: "/register",
-    label: "Register",
-    icon: mdiAccountPlusOutline,
-  },
-  {
-    to: "/error",
-    label: "Error",
-    icon: mdiAlertCircle,
-  },
-  {
-    label: "Dropdown",
-    icon: mdiViewList,
-    menu: [
-      {
-        label: "Item One",
-      },
-      {
-        label: "Item Two",
-      },
-    ],
   },
 ];

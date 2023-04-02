@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 const url = "http://localhost:5000";
 
@@ -25,15 +26,14 @@ export const useMainStore = defineStore("main", {
       description: "",
     },
     user: {
-      name: "",
+      nama: "",
       email: "",
       password: "",
-      confirm: "",
     },
-    category: ["None", "Family", "Work", "School"],
+    category: ["none", "Family", "Work", "School"],
     contacts: [],
     contact: {},
-    user_id: "64291b7ca36fb25f6b03c51a",
+    user_id: "",
     notification: false,
     is_edit: false,
     is_delete: false,
@@ -70,14 +70,20 @@ export const useMainStore = defineStore("main", {
         category: "None",
         description: "",
       };
+      this.user = {
+        nama: "",
+        email: "",
+        password: "",
+      };
     },
     async getContacts() {
+      this.decodeToken();
       this.loading = true;
       this.contacts = [];
       try {
         await axios
           .post(`${url}/contacts`, {
-            user_id: "64291b7ca36fb25f6b03c51a",
+            user_id: this.user_id,
           })
           .then((res) => {
             this.contacts = [...res.data.data];
@@ -96,6 +102,7 @@ export const useMainStore = defineStore("main", {
       }
     },
     async addContact() {
+      this.decodeToken();
       this.loading = true;
       try {
         await axios
@@ -125,7 +132,7 @@ export const useMainStore = defineStore("main", {
       }
     },
     async updateContact(id) {
-      console.log(`id: ${id}`);
+      this.decodeToken();
       this.loading = true;
       try {
         await axios
@@ -156,6 +163,7 @@ export const useMainStore = defineStore("main", {
       }
     },
     async getContact(id) {
+      this.decodeToken();
       this.loading = true;
       try {
         await axios
@@ -175,6 +183,7 @@ export const useMainStore = defineStore("main", {
       }
     },
     async deleteContact(id) {
+      this.decodeToken();
       this.loading = true;
       try {
         await axios
@@ -198,6 +207,58 @@ export const useMainStore = defineStore("main", {
           });
       } catch (err) {
         console.log(err);
+      }
+    },
+    async register() {
+      this.loading = true;
+      try {
+        await axios
+          .post(`${url}/register`, {
+            name: this.user.nama,
+            email: this.user.email,
+            password: this.user.password,
+          })
+          .then((res) => {
+            this.resetInput();
+            this.loading = false;
+            this.router.push("/login");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async login() {
+      this.loading = true;
+      try {
+        await axios
+          .post(`${url}/login`, {
+            email: this.user.email,
+            password: this.user.password,
+          })
+          .then((res) => {
+            this.loading = false;
+            localStorage.setItem("token", res.data.data.token);
+            this.router.push("/");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async logout() {
+      localStorage.removeItem("token");
+      this.router.push("/login");
+    },
+    decodeToken() {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const decoded = jwt_decode(token);
+        this.user_id = decoded._id;
       }
     },
   },

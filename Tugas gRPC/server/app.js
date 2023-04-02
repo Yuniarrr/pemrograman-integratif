@@ -93,7 +93,7 @@ async function main() {
                 if (!user) {
                     callback({ code: grpc.status.NOT_FOUND, message: 'User not found' }, null);
                 } else {
-                    const contact = await Contacts.findOneAndUpdate(_id, _contact, { new: true }).exec();
+                    const contact = await Contacts.findOneAndUpdate({ _id }, _contact, { new: true }).exec();
                     if (!contact) {
                         callback({ code: grpc.status.NOT_FOUND, message: 'Contact not found' }, null);
                     } else {
@@ -150,11 +150,6 @@ async function main() {
                 } else {
                     const user = new Users(_user);
                     const new_user = await user.save();
-                    // const token = jwt.sign({
-                    //     _id: new_user._id,
-                    //     email: new_user.email
-                    // }, setup.secret, { expiresIn: '2h' });
-                    // new_user.token = token;
                     callback(null, { message: '1' });
                 }
             } catch (error) {
@@ -164,10 +159,15 @@ async function main() {
         getUser: async (call, callback) => {
             const _email = call.request.email;
             try {
-                const user = await Users.findOne(_email);
+                const user = await Users.findOne({ email: _email });
                 if (!user) {
                     callback({ code: grpc.status.NOT_FOUND, message: 'User not found' }, null);
                 } else {
+                    const token = jwt.sign({
+                        _id: user._id,
+                        email: user.email
+                    }, setup.secret, { expiresIn: '2h' });
+                    user.token = token;
                     callback(null, user);
                 }
             } catch (error) {

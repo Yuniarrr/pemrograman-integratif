@@ -142,7 +142,7 @@ app.delete('/contact', (req, res) => {
 
 app.post('/login', (req, res) => {
     try {
-        client.login({
+        client.getUser({
             email: req.body.email,
             password: req.body.password
         }, (err, data) => {
@@ -152,8 +152,7 @@ app.post('/login', (req, res) => {
                 });
             } else {
                 return res.status(200).send({
-                    message: data.message,
-                    token: data.token
+                    data,
                 });
             }
         });
