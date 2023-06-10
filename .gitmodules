@@ -1,0 +1,3 @@
+[submodule "nyancode"]
+	path = nyancode
+	url = https://github.com/0xazr/nyancode.git
