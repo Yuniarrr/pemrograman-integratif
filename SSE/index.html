@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>SSE test</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 50%;
+      }
+
+      th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+
+  <body>
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script>
+      const events = new EventSource('http://localhost:3000/events');
+      const dataTable = document.getElementById('dataTable');
+      const tbody = dataTable.getElementsByTagName('tbody')[0];
+
+      events.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+
+        const newRow = document.createElement('tr');
+
+        const idCell = document.createElement('td');
+        const nameCell = document.createElement('td');
+
+        idCell.textContent = data.id;
+        nameCell.textContent = data.name;
+
+        newRow.appendChild(idCell);
+        newRow.appendChild(nameCell);
+
+        tbody.appendChild(newRow);
+      };
+    </script>
+  </body>
+</html>

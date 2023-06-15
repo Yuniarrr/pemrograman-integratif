@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>SSE CLIENT</title>
+  </head>
+
+  <body>
+    <h2>Send to Server</h2>
+    <div>
+        <label for="id">id</label>
+        <input type="text" name="id" id="id">
+    </div>
+    <br>
+    <div>
+        <label for="name">name</label>
+        <input type="text" name="name" id="name">
+    </div>
+    <br>
+    <button id="sendButton">Send to server</button>
+    <p id="statusMessage"></p>
+  </body>
+
+  <script>
+    document.getElementById("sendButton").addEventListener("click", function() {
+      let id = document.getElementById("id").value;
+      let name = document.getElementById("name").value;
+      let data = { "id": id, "name": name };
+      let jsonData = JSON.stringify(data);
+
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://localhost:3000/send-event", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          document.getElementById("statusMessage").textContent = "Request sent successfully";
+          setTimeout(function() {
+            document.getElementById("statusMessage").textContent = "";
+          }, 1000);
+        }
+      };
+
+      xhr.send(jsonData);
+    });
+  </script>
+</html>
